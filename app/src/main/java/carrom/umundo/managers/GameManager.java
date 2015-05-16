@@ -158,16 +158,24 @@ public class GameManager implements IPhysicsManagerClient,
 		clients = new ArrayList<IGameManagerClient>();
 		pottedPieces = new ArrayList<Piece>();
 
-		players = new Player[numPlayers];
+		players = new Player[4];
 		for (int i = 0; i < numPlayers; i++) {
 			players[i] = new Player();
 			players[i].shootingRectIndex = i;
+			if(i%2==0)
+				players[i].pieceType = PieceType.WHITE;
+			else
+				players[i].pieceType = PieceType.BLACK;
 		}
-		players[0].pieceType = PieceType.WHITE;
-		players[1].pieceType = PieceType.BLACK;
-		players[1].shootingRectIndex = Board.TOP_SHOOTING_RECT;
-		players[1].aiPlayer = true;
-
+		for (int i = numPlayers; i < 4; i++) {
+			players[i] = new Player();
+			players[i].shootingRectIndex = i;
+			if(i%2==0)
+				players[i].pieceType = PieceType.WHITE;
+			else
+				players[i].pieceType = PieceType.BLACK;
+			players[i].aiPlayer = true;
+		}
 		ruleManager = new ICFRuleManager(players);
 
 		board = new Board((panelWidth - boardSize) / 2,

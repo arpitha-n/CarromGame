@@ -85,7 +85,7 @@ public class MainGamePanel extends SurfaceView implements
 		white = BitmapFactory.decodeResource(this.getResources(),
 				R.mipmap.white);
 
-		gameManager = new GameManager(2, striker.getHeight() / 2,
+		gameManager = new GameManager(4, striker.getHeight() / 2,
 				black.getHeight() / 2, carromBoard.getHeight(),
 				MainGamePanel.PANEL_WIDTH, MainGamePanel.PANEL_HEIGHT);
 		gameManager.registerClient(this);
