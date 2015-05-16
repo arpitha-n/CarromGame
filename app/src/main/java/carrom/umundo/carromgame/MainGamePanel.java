@@ -49,7 +49,7 @@ public class MainGamePanel extends SurfaceView implements
 
 	GestureDetector gesture; // To detect touch events of the user.
 
-	PolarLine guideLine; //Defined in net.ripper.carrom.model.components.PolarLine
+	PolarLine guideLine; //Defined in locally in the program
 	Paint activeGuidePaint;
 	Paint selectedGuidePaint;
 	Paint l1Paint;
