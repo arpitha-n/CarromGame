@@ -1,14 +1,23 @@
 package carrom.umundo.managers;
 
+import android.app.Application;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.util.Log;
 
+import org.umundo.core.Message;
+import org.umundo.core.Publisher;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import carrom.umundo.carromgame.CarromGame_umundo;
 import carrom.umundo.managers.clients.IGameManagerClient;
 import carrom.umundo.managers.clients.IPhysicsManagerClient;
 import carrom.umundo.managers.model.Player;
@@ -21,6 +30,7 @@ import carrom.umundo.model.Piece;
 import carrom.umundo.model.Piece.PieceType;
 import carrom.umundo.model.geometriccomponents.Circle;
 import carrom.umundo.model.geometriccomponents.Vector2f;
+import carrom.umundo.renderer.RenderThread;
 import carrom.umundo.utils.UtilityFunctions;
 
 /**
@@ -286,6 +296,7 @@ public class GameManager implements IPhysicsManagerClient,
 	public void allMotionStopped(List<CollisionPair> collisionPairs) {
 		physicsMgr.setPaused(true);
 		this.gameState = GameState.STRIKER_POSITIONING;
+		Log.v("CarromGame:", " Have to go to next user");
 
 		RuleManager.Result result = ruleManager.getResult(currentPlayerIndex,
 				pottedPieces, blackPieces, whitePieces, queen, striker);
@@ -304,7 +315,7 @@ public class GameManager implements IPhysicsManagerClient,
 			// a player has won the game
 		}
 
-		Log.d(TAG, result.resultFlag + " black:" + result.black + " white:"
+		Log.v("CarromGame result:" + TAG, result.resultFlag + " black:" + result.black + " white:"
 				+ result.white + " next:" + result.nextPlayerIndex);
 
 		// clear potted Pieces
@@ -322,14 +333,29 @@ public class GameManager implements IPhysicsManagerClient,
 				client.callAI();
 			}
 		}
-	}
+		//CarromGame_umundo carromGameUmundo = new CarromGame_umundo();
+		try {
+			Log.v("CarromGame:", "creating carromGameUmundo");
 
+			Message m=new Message(serializeCanvas(new RenderThread().getCanvas()));
+			m.putMeta("CLASS","Canvas");
+			Log.v("CarromGame:", "creating carromGameUmundo" + m.getMeta("CLASS"));
+			CarromGame_umundo.gamePublisher.send(m);
+		} catch (Exception e) {
+			Log.v("CarromGame: ", "Exception in creating carromGameUmundo");
+		}
+	}
 	public void takeShot(float vx, float vy) {
 		physicsMgr.setPaused(false);
 		striker.velocity.x = vx;
 		striker.velocity.y = vy;
 	}
-
+	public static byte[] serializeCanvas(Object obj) throws IOException {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		ObjectOutputStream os = new ObjectOutputStream(out);
+		os.writeObject(obj);
+		return out.toByteArray();
+	}
 	@Override
 	/**
 	 * Custom collision handling for collision between a hole

@@ -40,7 +40,7 @@ public class RenderThread extends Thread {
 	private long totalFramesSkipped = 0l;
 	// number of frames skipped in a store cycle (1 sec)
 	private long framesSkippedPerStatCycle = 0l;
-
+	Canvas canvas;
 	// number of rendered frames in an interval
 	private int frameCountPerStatCycle = 0;
 	private long totalFrameCount = 0l;
@@ -56,11 +56,18 @@ public class RenderThread extends Thread {
 		this.surfaceHolder = surfaceHolder;
 		this.gamePanel = gamePanel;
 	}
+	public RenderThread() {
+		super();
 
+	}
+public Canvas getCanvas(){
+
+	return canvas;
+}
 	@Override
 	public void run() {
-		Canvas canvas;
-		Log.d(TAG, "Starting game loop");
+
+		Log.v("CarromGame:"+TAG, "Starting game loop");
 		initTimingElements();
 		//
 		// long beginTime; // the time when the cycle begun
