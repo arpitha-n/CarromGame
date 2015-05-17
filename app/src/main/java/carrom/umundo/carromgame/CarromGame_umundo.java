@@ -75,14 +75,15 @@ public class CarromGame_umundo extends Activity {
     }
 
     public class TestReceiver extends Receiver {
-         byte[] msgb;
-        String type=null;
+        byte[] msgb;
+        String type = null;
+
         public void receive(Message msg) {
             msgb = msg.getData();
-            type=msg.getMeta("CLASS");
+            type = msg.getMeta("CLASS");
             Log.v("CarromGame:umundo value", "TYPE = " + type);
             for (String key : msg.getMeta().keySet()) {
-                Log.v("CarromGame: umundo", key + ": " + msg.getMeta(key)+" value for class"+msg.getMeta("CLASS"));
+                Log.v("CarromGame: umundo", key + ": " + msg.getMeta(key) + " value for class" + msg.getMeta("CLASS"));
             }
 
             CarromGame_umundo.this.runOnUiThread(new Runnable() {
