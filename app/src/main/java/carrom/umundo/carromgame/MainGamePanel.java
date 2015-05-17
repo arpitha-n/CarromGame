@@ -68,8 +68,6 @@ public class MainGamePanel extends SurfaceView implements
 
 		renderThread = new RenderThread(this.getHolder(), this);
 
-		// clock = new Clock();
-		// clock2 = new Clock();
 		gesture = new GestureDetector(this);
 
 		carromBoard = BitmapFactory.decodeResource(this.getResources(),
@@ -290,63 +288,6 @@ public class MainGamePanel extends SurfaceView implements
 				|| gameManager.gameState == GameState.STRIKER_SHOT_POWER) {
 			drawGuide(canvas);
 		}
-
-		// for (Rect r : this.gameManager.board.shootingRect) {
-		// canvas.drawRect(r, aiRectPaint);
-		// }
-		//
-		// canvas.drawCircle(this.gameManager.board.centerCircle.x,
-		// this.gameManager.board.centerCircle.y,
-		// this.gameManager.board.centerCircle.radius, aiRectPaint);
-		//
-		// for (Circle c : this.gameManager.board.holes) {
-		// canvas.drawCircle(c.x, c.y, c.radius, aiRectPaint);
-		// }
-
-		/** AI Visualization **/
-		// // drawing rects made by ai
-		// if (gameManager.gameState != GameState.STRIKER_SHOT_TAKEN) {
-		// if (ai.polygons.size() > 0) {
-		// for (Polygon p : ai.polygons) {
-		// p.drawPolygon(canvas, aiRectPaint);
-		// }
-		// }
-		//
-		// }
-		//
-		// if (ai.testRect != null) {
-		// ai.testRect.drawPolygon(canvas, aiRectPaint);
-		// }
-		//
-		// // // draw guides
-		// if (this.ai.line1 != null) {
-		// canvas.drawLine(ai.line1.originX, ai.line1.originY,
-		// ai.line1.getFinalX(), ai.line1.getFinalY(), l1Paint);
-		// }
-		// if (ai.line2 != null) {
-		// canvas.drawLine(ai.line2.originX, ai.line2.originY,
-		// ai.line2.getFinalX(), ai.line2.getFinalY(), l2Paint);
-		// }
-		//
-		// if (ai.line3 != null) {
-		// canvas.drawLine(ai.line3.originX, ai.line3.originY,
-		// ai.line3.getFinalX(), ai.line3.getFinalY(), l3Paint);
-		// }
-		//
-		// if (ai.line4 != null) {
-		// canvas.drawLine(ai.line4.originX, ai.line4.originY,
-		// ai.line4.getFinalX(), ai.line4.getFinalY(), l4Paint);
-		// }
-		// if (ai.line5 != null) {
-		// canvas.drawLine(ai.line5.originX, ai.line5.originY,
-		// ai.line5.getFinalX(), ai.line5.getFinalY(), l5Paint);
-		// }
-		// if (ai.strikerTest != null) {
-		// canvas.drawBitmap(striker, ai.strikerTest.region.x
-		// - ai.strikerTest.region.radius, ai.strikerTest.region.y
-		// - ai.strikerTest.region.radius, null);
-		//
-		// }
 	}
 
 	public void drawGuide(Canvas canvas) {
